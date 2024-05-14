@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+<div class="card">
+    <div class="search">
+        <input type="text" placeholder="city name"
+        spellcheck="false">
+        <button><img src="images/search.png"></button>
+    </div>
+    <div class="weather">
+        <img src="images/rain.png" class-"weather-icon">
+        <h1 class="temp">22°c </h1> 
+        <h2 class="city">New York</h2> <div class="details"> <div class="col">
+        <img src="images/humidity.png">
+        <div> <p class="humidity">50%</p>
+        <p>Humidity</p> </div>
+       
+        </div>
+        <div class="col">
+            <img src="images/wind.png">
+            <div> <p class="humidity">50%</p>
+            <p>Wind</p> </div>
+           
+            </div>
+</div>
+    </div>
+</div>
+<script>
+    
+    const apikey = "88e2a8e5f5336781960ae6847e2ed531d" ;
+
+    const apiUrl ="https://api.openweathermap.org/data/2.5/weather?units=metric&q=Tampa";
+  
+    const searchBox = document.querySelector(".search input");
+  
+    const searchBtn = document.querySelector(".search button"); 
+  
+    async function checkWeather(city){
+    const response = await fetch(apiUrl + city +'&appid=${apikey}');
+    var data = await response. json();
+    
+  
+    console.log(data);
+    
+    document.queryselector(".city").innerText = data.name;
+    document.querySelector(".temp").innerText = Math.round (data.main.temp) + "°c"; 
+    document.querySelector(".humidity").innerText= data.main.humidity + "%" ;
+    document.queryselector(".wind").innerText = data.wind.speed + " km/h";
+    
+    }
+    searchBtn.addEventListener("click", ()=>{
+     checkWeather (searchBox.value);
+    })
+    </script>
+</body>
+</html>
